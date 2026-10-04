@@ -1,6 +1,6 @@
 # A 90’s Christmas
 
-A single-page party invitation for **Moda Central, Hove**, built with Next.js, TypeScript, plain CSS, and a Supabase-backed RSVP endpoint. The dress code is **90’s Christmas**. Date and time are still to be announced.
+A single-page party invitation for **Moda Central, Hove**, built with Next.js, TypeScript, plain CSS, and a Supabase-backed RSVP endpoint. **5th December: arrive from 4pm, dinner ready from 6pm.** Dress code: **90’s Christmas jumpers or 90’s Christmas glam — your choice!**
 
 **Status:** local build complete; hosting deferred. See [MILESTONES.md](MILESTONES.md) for progress and verification. Without Supabase credentials, the invitation works and the form displays “RSVPs opening soon”. It does not pretend to save responses.
 
@@ -64,7 +64,7 @@ The invitation is accessible to anyone with its URL. A `noindex` directive disco
 2. Import it into Vercel and select the Next.js preset, with the repository root as the project root. Standard `npm run build` settings are sufficient; no custom deployment boilerplate is required.
 3. Add `SUPABASE_URL` and `SUPABASE_SECRET_KEY` as server environment variables in the intended Vercel environment. Keep preview tests in a separate Supabase project so they do not affect the real guest list.
 4. Deploy a preview and check the image, mobile layout, all attendance options, persisted values, retry behaviour, and database access restrictions.
-5. Add the final date/time/arrival instructions, deploy production, and smoke-test a labelled RSVP. Remove the test response after checking it.
+5. Confirm the event details, deploy production, and smoke-test a labelled RSVP. Remove the test response after checking it.
 
 [Vercel supports Git-based deployments](https://vercel.com/docs/git). Hosting setup is intentionally pending until requested.
 

@@ -9,7 +9,7 @@
 
 ## Inputs for launch
 
-- Received: A 90’s Christmas; Moda Central, Hove; dress code: 90’s Christmas. Date, time, and arrival details still needed.
+- Confirmed: A 90’s Christmas; 5th December; arrive from 4pm; dinner ready from 6pm; Moda Central, Hove. Dress code: 90’s Christmas jumpers or 90’s Christmas glam — your choice.
 - Vercel and Supabase project access; repository destination. Keep secret keys out of chat and Git.
 - Received a Christmas living-room reference photo, now used as the wallpaper and profile photo. The original illustrated SVG remains available as an alternative.
 
