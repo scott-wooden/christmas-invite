@@ -1,79 +1,84 @@
-# Christmas party website
+# A 90’s Christmas
 
-Status: planning. No application or deployment has been created yet.
+A single-page party invitation for **Moda Central, Hove**, built with Next.js, TypeScript, plain CSS, and a Supabase-backed RSVP endpoint. The dress code is **90’s Christmas**. Date and time are still to be announced.
 
-## Approach
+**Status:** local build complete; hosting deferred. See [MILESTONES.md](MILESTONES.md) for progress and verification. Without Supabase credentials, the invitation works and the form displays “RSVPs opening soon”. It does not pretend to save responses.
 
-Build a single responsive page using the standard Next.js App Router boilerplate, TypeScript, and plain CSS. Deploy to Vercel and store RSVPs in Supabase Postgres. Use the Supabase dashboard to review and export responses, keeping the initial website small.
+## Run locally
 
-## Page and design
+Requires Node.js 20.9 or newer; use an active LTS version for deployment.
 
-- A Christmas background image with a dark overlay for readable text. Store it at `public/images/christmas-background.webp` so it is easy to replace.
-- A warm, simple invitation style: evergreen, cream, and muted gold; clear typography and generous spacing.
-- Event title, date, time, venue/address, and optional notes in one editable configuration file.
-- Event details followed by the RSVP form; a single column on phones and a wider layout on desktop.
-- Accessible labels, keyboard navigation, visible focus states, and large touch targets.
+```sh
+npm ci
+npm run dev
+```
+
+Open http://localhost:3000. To check the production build:
+
+```sh
+npm test
+npm run build
+npm start
+```
+
+Stop the development server before `npm start` if both would use port 3000. `npm run typecheck` is also available. The production build performs TypeScript checks.
+
+## Customise the invitation
+
+Edit `src/config/event.ts` to change the title, date, time, venue, city, arrival details, dress code, or RSVP note.
+
+The original illustrated background is `public/images/christmas-background.svg`. Replace it, or add a JPG/WebP/PNG in `public/images/` and update `backgroundImage` in the event configuration. Use a landscape image with space on the left for the invitation text. Colours, spacing, responsive image cropping, and the mobile contrast overlay live in `src/app/globals.css`.
+
+Typography uses Google Fonts with local system fallbacks. The illustration is stored locally and needs no external image service.
+
+## Connect Supabase when ready
+
+1. Create or select a Supabase project.
+2. Run `supabase/migrations/202610040001_create_rsvps.sql` once in its SQL Editor (or apply it using your Supabase migration workflow).
+3. Copy `.env.example` to `.env.local`.
+4. Set `SUPABASE_URL` to the project URL and `SUPABASE_SECRET_KEY` to the server secret key. The legacy `service_role` JWT is also supported. A publishable/anonymous key is not sufficient.
+5. Restart the local server. Submission becomes available when both environment variables are present; actual saving still requires the migration and valid credentials.
+6. Submit a clearly labelled test response and check the `rsvps` table. Verify public/anonymous clients cannot read or write that table, then delete the test response in the dashboard.
+
+Keep secrets out of chat and Git. Never prefix these variables with `NEXT_PUBLIC_`. `.env.local` is ignored. [Supabase secret keys belong on the server](https://supabase.com/docs/guides/getting-started/api-keys).
+
+The browser sends an RSVP to `POST /api/rsvp`. The server validates it and uses Supabase's REST API. The table has row-level security enabled with no public policies, and no table privileges for `anon` or `authenticated`. Only the server can insert/read responses; guests cannot access a public guest list. The Supabase dashboard is the host's initial management interface, including CSV export.
 
 ## RSVP behaviour
 
-- Required name.
-- Required attendance choice: Yes, No, or Maybe.
-- Explicit Yes/No answers for bringing a plus one and needing a room in the guest apartment.
-- When attendance is No, hide the extra questions and save both as false.
-- Explain that requesting a room does not confirm a booking.
-- Validate in the browser and on the server. Show submitting, success, and retryable error states; only confirm success after persistence.
-- Prevent double-click submissions and make retries idempotent using a client-generated submission UUID retained for that attempt.
-- Initial scope: no guest accounts or cross-device RSVP editing. Names are not unique; different guests may share a name. Separate submissions can still create separate responses, which the host can manage in Supabase.
+- Required name and Yes / No / Maybe attendance.
+- Required explicit Yes / No answers for a plus one and a guest-apartment room when attending or undecided.
+- Choosing No hides those questions and stores both as false.
+- Room requests are requests, not confirmed reservations.
+- The submit button locks during a request. An unchanged retry reuses its UUID and cannot overwrite an existing RSVP or create an extra row. Pending submission identity is kept in session storage where available.
+- Errors keep the form available for retry. A success receipt appears only after confirmed persistence.
+- Names are not unique. Guests do not have accounts or cross-device editing; changes should go through the host. A changed/new submission may create a separate response.
 
-## Data and access
+The invitation is accessible to anyone with its URL. A `noindex` directive discourages search indexing but is not access control. The endpoint includes bounded inputs, an origin check, and a honeypot; these are basic protections, not comprehensive rate limiting. If the link is distributed widely, add platform rate limiting before opening RSVPs publicly.
 
-One `rsvps` table, created by a tracked SQL migration:
+## Deploy to Vercel later
 
-| Field | Type / constraint |
+1. Push this repository to your chosen private Git remote.
+2. Import it into Vercel and select the Next.js preset, with the repository root as the project root. Standard `npm run build` settings are sufficient; no custom deployment boilerplate is required.
+3. Add `SUPABASE_URL` and `SUPABASE_SECRET_KEY` as server environment variables in the intended Vercel environment. Keep preview tests in a separate Supabase project so they do not affect the real guest list.
+4. Deploy a preview and check the image, mobile layout, all attendance options, persisted values, retry behaviour, and database access restrictions.
+5. Add the final date/time/arrival instructions, deploy production, and smoke-test a labelled RSVP. Remove the test response after checking it.
+
+[Vercel supports Git-based deployments](https://vercel.com/docs/git). Hosting setup is intentionally pending until requested.
+
+## Project map
+
+| Path | Purpose |
 | --- | --- |
-| id | UUID primary key; also the submission idempotency key |
-| name | Trimmed text, 1–100 characters |
-| attendance | Text constrained to yes, no, maybe |
-| plus_one | Boolean |
-| needs_room | Boolean |
-| created_at | Timestamp with time zone, default now() |
+| `src/config/event.ts` | Editable event details and background path |
+| `src/app/page.tsx` | Invitation and event sections |
+| `src/components/rsvp-form.tsx` | Form, validation UI, pending/error/success states |
+| `src/app/api/rsvp/route.ts` | Server-only RSVP endpoint |
+| `src/lib/rsvp.ts` | Payload validation and HTTP handling |
+| `src/lib/supabase.ts` | Private persistence and retry verification |
+| `supabase/migrations/` | Database schema and access restrictions |
+| `tests/rsvp.test.ts` | Focused tests using mocked storage responses |
 
-Add a database constraint that No responses cannot request a plus one or room. Submit through a Next.js server endpoint. Keep the Supabase secret key in server-only environment variables. Enable row-level security and deny anonymous table reads and writes; the endpoint uses the server credential and accepts only validated RSVP fields. Do not expose a public guest list or RSVP read endpoint. Add a hidden honeypot for basic spam filtering; it is not comprehensive abuse protection.
+## Verification limits
 
-## Build and Git milestones
-
-1. `docs: record Christmas party website plan` — this document and initial ignore rules.
-2. `chore: scaffold Next.js app` — minimal boilerplate, scripts, environment example, and event configuration.
-3. `feat: add responsive Christmas invitation and RSVP form` — replaceable background, event details, accessible form, and UI states.
-4. `feat: persist RSVPs in Supabase` — SQL migration, server validation, idempotent inserts, and database integration.
-5. `test: verify RSVP flow and document Vercel deployment` — focused validation/integration checks and setup instructions.
-
-Keep secrets, generated builds, dependencies, and local deployment metadata out of Git. Use a private remote repository when connecting Vercel; commit each completed milestone.
-
-## Verification
-
-- Production build and TypeScript checks.
-- Check narrow mobile and desktop layouts, keyboard interaction, labels, and image contrast.
-- Exercise all three attendance options, required fields, plus-one/room behaviour, and database failures.
-- Verify a repeated submission UUID creates one row; verify anonymous clients cannot read or directly write responses.
-- Confirm persisted values in Supabase, then smoke-test the Vercel deployment with a clearly labelled test response and remove it afterwards.
-
-## Deployment
-
-Create or select a Supabase project, apply the migration, and configure server-only environment variables locally and in Vercel. Connect the Git repository to Vercel using its Next.js preset. Verify a preview deployment, then deploy production. Document how to replace the image, edit details, inspect RSVPs, and redeploy. Keep preview tests separate from real guest responses.
-
-## Inputs needed before launch
-
-- Party title, date, time, location, and any dress-code or arrival notes.
-- Preferred background, if replacing the initial Christmas image.
-- Vercel and Supabase account/project access, and the remote Git repository destination.
-- Default assumption: guests can RSVP without signing in and the invitation is accessible to anyone with its URL. A private invitation or access code would need an explicit access-control choice.
-
-Placeholder event details can be used during development. No external resources need to be provisioned during this planning step.
-
-## References
-
-- [Next.js on Vercel](https://vercel.com/docs/frameworks/full-stack/nextjs)
-- [Vercel Git deployments](https://vercel.com/docs/git)
-- [Supabase API keys](https://supabase.com/docs/guides/getting-started/api-keys)
-- [Supabase row-level security](https://supabase.com/docs/guides/database/postgres/row-level-security)
+Local tests, production build, and responsive browser checks have passed. A real Supabase migration, anonymous access checks, and a full browser-to-live-database submission remain part of the launch milestone. No cloud resources have been created and no site has been published.
