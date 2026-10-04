@@ -1,8 +1,8 @@
 # Build milestones
 
 - [x] M0 — Plan: scope, architecture, Git repository.
-- [x] M1 — Foundation: Next.js, TypeScript, scripts, configuration, environment template. Dependency installation in progress.
-- [ ] M2 — Invitation: Christmas artwork, event details, accessible responsive RSVP form.
+- [x] M1 — Foundation: Next.js, TypeScript, scripts, configuration, environment template, locked dependencies.
+- [x] M2 — Invitation: Christmas artwork, event details, accessible responsive RSVP form.
 - [ ] M3 — Persistence: Supabase migration, protected server submission, validation, safe retries.
 - [ ] M4 — Local verification: production build, functional tests, desktop/mobile browser checks, setup guide.
 - [ ] M5 — Launch: real event details, Supabase project/migration, private remote repository, Vercel environment and deployment, live database/access checks.
