@@ -12,5 +12,5 @@ export const event = {
   dressCode: "90’s Christmas",
   note: "Think festive jumpers, throwback looks, and a little 90s magic.",
   rsvpDeadline: "Let us know if you can make it",
-  backgroundImage: "/images/christmas-background.svg",
+  backgroundImage: "/images/christmas-living-room.png",
 };

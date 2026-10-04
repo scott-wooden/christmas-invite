@@ -27,9 +27,11 @@ Stop the development server before `npm start` if both would use port 3000. `npm
 
 Edit `src/config/event.ts` to change the title, date, time, venue, city, arrival details, dress code, or RSVP note.
 
-The original illustrated background is `public/images/christmas-background.svg`. Replace it, or add a JPG/WebP/PNG in `public/images/` and update `backgroundImage` in the event configuration. Use a landscape image with space on the left for the invitation text. Colours, spacing, responsive image cropping, and the mobile contrast overlay live in `src/app/globals.css`.
+The current wallpaper and profile photo are the supplied reference image, stored unchanged at `public/images/christmas-living-room.png`. Add a JPG/WebP/PNG in `public/images/` and update `backgroundImage` in the event configuration to replace both. The original illustration is retained at `public/images/christmas-background.svg` as an alternative. Colours, spacing, and responsive layouts live in `src/app/globals.css`.
 
-Typography uses Google Fonts with local system fallbacks. The illustration is stored locally and needs no external image service.
+The design blends a Christmas living-room wallpaper with XP-style blue window bars, bevelled controls, a Myspace-inspired profile, Notepad event details, and festive web badges. Typography uses system Tahoma/Verdana, Georgia, and Courier fonts, with no external font requests.
+
+GIF-style twinkles, lights, and dancing trees use lightweight CSS loops. The taskbar's pause/resume button stops all decorative animation; system reduced-motion settings disable it automatically. Desktop shortcuts navigate to sections. Mobile layouts stack the windows and hide nonessential sidebar decorations. There are no pretend close/minimise buttons or autoplay audio.
 
 ## Connect Supabase when ready
 
@@ -68,16 +70,16 @@ The invitation is accessible to anyone with its URL. A `noindex` directive disco
 
 ## Project map
 
-| Path | Purpose |
-| --- | --- |
-| `src/config/event.ts` | Editable event details and background path |
-| `src/app/page.tsx` | Invitation and event sections |
+| Path                           | Purpose                                           |
+| ------------------------------ | ------------------------------------------------- |
+| `src/config/event.ts`          | Editable event details and background path        |
+| `src/app/page.tsx`             | Invitation and event sections                     |
 | `src/components/rsvp-form.tsx` | Form, validation UI, pending/error/success states |
-| `src/app/api/rsvp/route.ts` | Server-only RSVP endpoint |
-| `src/lib/rsvp.ts` | Payload validation and HTTP handling |
-| `src/lib/supabase.ts` | Private persistence and retry verification |
-| `supabase/migrations/` | Database schema and access restrictions |
-| `tests/rsvp.test.ts` | Focused tests using mocked storage responses |
+| `src/app/api/rsvp/route.ts`    | Server-only RSVP endpoint                         |
+| `src/lib/rsvp.ts`              | Payload validation and HTTP handling              |
+| `src/lib/supabase.ts`          | Private persistence and retry verification        |
+| `supabase/migrations/`         | Database schema and access restrictions           |
+| `tests/rsvp.test.ts`           | Focused tests using mocked storage responses      |
 
 ## Verification limits
 

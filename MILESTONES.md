@@ -11,7 +11,7 @@
 
 - Received: A 90’s Christmas; Moda Central, Hove; dress code: 90’s Christmas. Date, time, and arrival details still needed.
 - Vercel and Supabase project access; repository destination. Keep secret keys out of chat and Git.
-- Optional replacement background image. The included SVG is original, editable artwork.
+- Received a Christmas living-room reference photo, now used as the wallpaper and profile photo. The original illustrated SVG remains available as an alternative.
 
 The current authorised stage is the local build. M5 is deferred at the user's request until infrastructure is connected and the live submission flow is verified.
 
@@ -22,3 +22,11 @@ The current authorised stage is the local build. M5 is deferred at the user's re
 - Browser: inspected invitation and RSVP layouts at desktop and mobile widths; no horizontal overflow at 320, 390, and 1440 pixels. Verified Yes/No/Maybe selection, conditional fields, and plus-one/room controls. No browser warnings/errors observed.
 - Local HTTP smoke test: unconfigured API returns 503 and a helpful message, never a success receipt.
 - Pending M5: real database migration and RLS checks, end-to-end saved RSVP and success receipt, deployed Vercel smoke test. No cloud project or remote Git repository created.
+
+## Approved redesign — family computer Christmas
+
+- [x] R1 — Direction approved: reference-photo wallpaper, XP window chrome, Myspace profile, hard shadows and festive animation.
+- [x] R2 — Visual rebuild: browser frame, profile sidebar, Notepad details, bevelled RSVP controls, desktop shortcuts and taskbar.
+- [x] R3 — Motion: GIF-style CSS sparkles, fairy lights and dancing trees; working pause/resume and reduced-motion support.
+- [x] R4 — Verification: production build; mobile checks at 320/390px; desktop preview; conditional RSVP fields, radio controls and animation pause checked in the browser.
+- [x] R5 — Redesign documented and ready for its Git milestone commit. Hosting remains deferred.
