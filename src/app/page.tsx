@@ -231,6 +231,10 @@ export default function Home() {
                         <small>{event.note}</small>
                       </dd>
                     </div>
+                    <div>
+                      <dt>What to bring</dt>
+                      <dd>{event.whatToBring}</dd>
+                    </div>
                   </dl>
                   <p className="notepad-foot">
                     * Good company. Questionable jumpers. Excellent memories.

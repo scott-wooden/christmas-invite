@@ -18,6 +18,7 @@ export const event = {
   address: "11 Boulevard Place, Hove, BN3 7RX",
   dressCode: "90’s Christmas",
   note: "90’s Christmas jumpers or 90’s Christmas glam. Your choice!",
+  whatToBring: "Bring your favourite booze. We'll have food covered",
   rsvpDeadline: "Let us know if you can make it",
   backgroundImage: "/images/christmas-living-room.png",
 };
