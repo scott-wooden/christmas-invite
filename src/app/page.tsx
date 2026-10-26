@@ -212,7 +212,16 @@ export default function Home() {
                       <dt>WHERE</dt>
                       <dd>
                         {event.venue}
-                        <small>{event.address}</small>
+                        <small>
+                          <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${event.venue}, ${event.address}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`${event.address} — open in Google Maps (new tab)`}
+                          >
+                            {event.address}
+                          </a>
+                        </small>
                       </dd>
                     </div>
                     <div>
