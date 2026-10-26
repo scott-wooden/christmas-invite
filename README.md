@@ -36,7 +36,7 @@ GIF-style twinkles, lights, and dancing trees use lightweight CSS loops. The tas
 ## Connect Supabase when ready
 
 1. Create or select a Supabase project.
-2. Run `supabase/migrations/202610040001_create_rsvps.sql` once in its SQL Editor (or apply it using your Supabase migration workflow).
+2. Run both SQL files in `supabase/migrations/` in filename order: first `202610040001_create_rsvps.sql`, then `202610260001_add_dietary_requirements.sql`. If you already created the table, run only the second migration. Alternatively apply them using your Supabase migration workflow.
 3. Copy `.env.example` to `.env.local`.
 4. Set `SUPABASE_URL` to the project URL and `SUPABASE_SECRET_KEY` to the server secret key. The legacy `service_role` JWT is also supported. A publishable/anonymous key is not sufficient.
 5. Restart the local server. Submission becomes available when both environment variables are present; actual saving still requires the migration and valid credentials.
@@ -49,6 +49,7 @@ The browser sends an RSVP to `POST /api/rsvp`. The server validates it and uses 
 ## RSVP behaviour
 
 - Required name and Yes / No / Maybe attendance.
+- Optional dietary requirements (up to 500 characters), including any plus-one requirements. Hidden and cleared for No responses.
 - Required explicit Yes / No answers for a plus one and a guest-apartment room when attending or undecided.
 - Choosing No hides those questions and stores both as false.
 - Room requests are requests, not confirmed reservations.

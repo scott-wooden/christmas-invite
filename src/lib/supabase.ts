@@ -30,7 +30,10 @@ export async function saveRsvp(rsvp: Rsvp): Promise<void> {
   // A network retry may arrive after the first insert succeeded. Compare internally;
   // never update an existing response or return another guest's data to the caller.
   endpoint.searchParams.set("id", `eq.${rsvp.id}`);
-  endpoint.searchParams.set("select", "id,name,attendance,plus_one,needs_room");
+  endpoint.searchParams.set(
+    "select",
+    "id,name,attendance,plus_one,needs_room,dietary_requirements",
+  );
   const existingResponse = await fetch(endpoint, {
     headers,
     cache: "no-store",

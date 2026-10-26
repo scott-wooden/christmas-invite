@@ -613,6 +613,14 @@ legend span {
   min-height: 44px;
   color: #202020;
 }
+.dietary-label {
+  display: block;
+  margin-top: 20px;
+}
+.dietary-input {
+  font-family: inherit;
+  resize: vertical;
+}
 .attendance-question,
 .binary-question {
   border: 0;

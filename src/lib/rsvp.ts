@@ -4,6 +4,7 @@ export type Rsvp = {
   attendance: "yes" | "no" | "maybe";
   plus_one: boolean;
   needs_room: boolean;
+  dietary_requirements: string;
 };
 
 export class RsvpError extends Error {
@@ -43,12 +44,22 @@ export function parseRsvp(value: unknown): Rsvp {
     throw new RsvpError("Please choose Yes, No, or Maybe.");
   if (typeof v.plus_one !== "boolean" || typeof v.needs_room !== "boolean")
     throw new RsvpError("Please answer the plus-one and room questions.");
+  const dietary = v.dietary_requirements ?? "";
+  if (
+    typeof dietary !== "string" ||
+    dietary.length > 500 ||
+    /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(dietary)
+  )
+    throw new RsvpError(
+      "Please keep dietary requirements to 500 characters or fewer.",
+    );
   return {
     id: v.id.toLowerCase(),
     name: v.name.trim(),
     attendance: v.attendance,
     plus_one: v.attendance === "no" ? false : v.plus_one,
     needs_room: v.attendance === "no" ? false : v.needs_room,
+    dietary_requirements: v.attendance === "no" ? "" : dietary.trim(),
   };
 }
 

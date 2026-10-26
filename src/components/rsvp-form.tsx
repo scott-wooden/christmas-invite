@@ -37,6 +37,10 @@ export function RsvpForm({ acceptingRsvps }: { acceptingRsvps: boolean }) {
       attendance,
       plus_one: attendance !== "no" && form.get("plus_one") === "yes",
       needs_room: attendance !== "no" && form.get("needs_room") === "yes",
+      dietary_requirements:
+        attendance === "no"
+          ? ""
+          : String(form.get("dietary_requirements") ?? "").trim(),
       website: String(form.get("website") ?? ""),
     };
     if (!payload.name) {
@@ -183,6 +187,25 @@ export function RsvpForm({ acceptingRsvps }: { acceptingRsvps: boolean }) {
         </fieldset>
         {attendance !== "no" && (
           <div className="extra-questions">
+            <label
+              className="text-label dietary-label"
+              htmlFor="dietary-requirements"
+            >
+              Dietary requirements <span>(optional)</span>
+            </label>
+            <textarea
+              className="name-input dietary-input"
+              id="dietary-requirements"
+              name="dietary_requirements"
+              rows={3}
+              maxLength={500}
+              aria-describedby="dietary-help"
+              placeholder="e.g. vegetarian, vegan, allergies or intolerances"
+            />
+            <p className="fine-print" id="dietary-help">
+              Include requirements for your plus one, if applicable. Leave blank
+              if none. Maximum 500 characters.
+            </p>
             <YesNo name="plus_one" legend="Bringing a plus one?" />
             <YesNo
               name="needs_room"

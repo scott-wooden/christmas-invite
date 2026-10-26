@@ -9,6 +9,7 @@ const valid = {
   attendance: "yes",
   plus_one: true,
   needs_room: false,
+  dietary_requirements: " Vegetarian; plus one has a nut allergy. ",
   website: "",
 };
 const request = (body: unknown, headers = {}) =>
@@ -24,6 +25,10 @@ test("all attendance choices save trimmed names and No clears extras", () => {
     assert.equal(row.name, "Test Guest");
     assert.equal(row.plus_one, attendance !== "no");
     assert.equal(row.needs_room, attendance !== "no");
+    assert.equal(
+      row.dietary_requirements,
+      attendance === "no" ? "" : valid.dietary_requirements.trim(),
+    );
     assert.equal("website" in row, false);
   }
 });
@@ -38,6 +43,9 @@ test("reject invalid input rather than coercing it", () => {
     { needs_room: null },
     { id: "not-an-id" },
     { website: "spam" },
+    { dietary_requirements: "a".repeat(501) },
+    { dietary_requirements: true },
+    { dietary_requirements: "bad\u0000value" },
   ])
     assert.throws(() => parseRsvp({ ...valid, ...patch }));
   for (const value of [null, [], "bad"]) assert.throws(() => parseRsvp(value));
@@ -51,6 +59,7 @@ test("HTTP success occurs only after persistence", async () => {
   assert.equal(res.status, 200);
   assert.deepEqual(await res.json(), { ok: true });
   assert.equal(stored?.name, "Test Guest");
+  assert.equal(stored?.dietary_requirements, valid.dietary_requirements.trim());
   const failed = await handleRsvp(request(valid), async () => {
     throw new Error("private database info");
   });
@@ -129,6 +138,9 @@ test("storage uses a private key and verifies unchanged retries without overwrit
         return new Response(null, { status: 201 });
       }
       assert.equal(url.searchParams.get("id"), `eq.${valid.id}`);
+      assert.ok(
+        url.searchParams.get("select")?.includes("dietary_requirements"),
+      );
       return Response.json([rows.get(valid.id)]);
     },
   );
@@ -141,6 +153,10 @@ test("storage uses a private key and verifies unchanged retries without overwrit
     /already been used/,
   );
   assert.equal(rows.get(row.id)?.name, "Test Guest");
+  await assert.rejects(
+    saveRsvp({ ...row, dietary_requirements: "Vegan" }),
+    /already been used/,
+  );
   mock.mock.mockImplementation(async () => new Response(null, { status: 500 }));
   await assert.rejects(saveRsvp(row), /storage failed/);
 });
@@ -154,4 +170,28 @@ test("missing Supabase credentials never produce false success", async (t) => {
   const response = await handleRsvp(request(valid), saveRsvp);
   assert.equal(response.status, 503);
   assert.match(await response.text(), /aren’t open/);
+});
+
+test("dietary notes are optional and support multiline text at the limit", () => {
+  assert.equal(
+    parseRsvp({ ...valid, dietary_requirements: undefined })
+      .dietary_requirements,
+    "",
+  );
+  assert.equal(
+    parseRsvp({ ...valid, dietary_requirements: "   " }).dietary_requirements,
+    "",
+  );
+  assert.equal(
+    parseRsvp({
+      ...valid,
+      dietary_requirements: "Vegan\nPlus one: gluten-free",
+    }).dietary_requirements,
+    "Vegan\nPlus one: gluten-free",
+  );
+  assert.equal(
+    parseRsvp({ ...valid, dietary_requirements: "a".repeat(500) })
+      .dietary_requirements.length,
+    500,
+  );
 });
