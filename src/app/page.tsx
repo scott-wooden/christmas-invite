@@ -179,11 +179,9 @@ export default function Home() {
                   <h3>
                     You’ve got an invitation! <span aria-hidden="true">✉</span>
                   </h3>
-                  <p>{event.description}</p>
-                  <p>
-                    Think living-room Christmas, big nostalgia, and all your
-                    favourite people. The only thing missing is you.
-                  </p>
+                  {event.about.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
                   <a className="retro-button invite-button" href="#rsvp">
                     Count me in! <span aria-hidden="true">➜</span>
                   </a>
