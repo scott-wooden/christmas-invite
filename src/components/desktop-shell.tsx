@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type ReactNode } from "react";
+import { MusicPlayer } from "./music-player";
 
 export function DesktopShell({
   children,
@@ -77,6 +78,7 @@ export function DesktopShell({
         </div>
         {children}
       </main>
+      <MusicPlayer />
       <nav className="taskbar" aria-label="Desktop navigation">
         <button
           className="start-button"

@@ -1122,3 +1122,96 @@ legend span {
     bottom: 44px;
   }
 }
+
+/* A compact, persistent player above the desktop taskbar. */
+.music-player {
+  position: fixed;
+  right: 16px;
+  bottom: 54px;
+  width: 290px;
+  max-width: calc(100vw - 24px);
+  z-index: 4;
+  border: 2px solid #2359a4;
+  border-radius: 6px 6px 0 0;
+  background: #ece9d8;
+  box-shadow: 4px 4px 0 #0006;
+}
+.music-player .window-title {
+  border-radius: 3px 3px 0 0;
+}
+.music-player-body {
+  padding: 9px;
+}
+.music-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #192733;
+  color: #bde6ff;
+  border: 2px inset #a1a8aa;
+  padding: 10px;
+}
+.music-display strong {
+  display: block;
+  font-size: 12px;
+  color: #fff;
+}
+.music-display div > span {
+  display: block;
+  font-size: 10px;
+  margin-top: 4px;
+}
+.music-disc {
+  font-size: 28px;
+}
+.music-time {
+  margin-left: auto;
+  font:
+    12px "Courier New",
+    monospace;
+}
+.music-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.music-play {
+  min-width: 83px;
+  min-height: 40px;
+  border: 2px outset #fff;
+  border-radius: 3px;
+  background: linear-gradient(#fff, #d6d5c7);
+  font-size: 11px;
+  font-weight: bold;
+  color: #183b74;
+}
+.music-play:active {
+  border-style: inset;
+}
+.music-status,
+.music-duration {
+  font-size: 9px;
+  color: #565a60;
+}
+.music-duration {
+  margin-left: auto;
+}
+.music-error {
+  font-size: 11px;
+  color: #9a2020;
+  margin-top: 8px;
+}
+.desktop {
+  padding-bottom: 245px;
+}
+@media (max-width: 720px) {
+  .music-player {
+    right: 12px;
+    bottom: 56px;
+    width: 270px;
+  }
+  .desktop {
+    padding-bottom: 255px;
+  }
+}
