@@ -27,11 +27,11 @@ Stop the development server before `npm start` if both would use port 3000. `npm
 
 Edit `src/config/event.ts` to change the title, date, time, venue, city, arrival details, dress code, or RSVP note.
 
-The current wallpaper and profile photo are the supplied reference image, stored unchanged at `public/images/christmas-living-room.png`. Add a JPG/WebP/PNG in `public/images/` and update `backgroundImage` in the event configuration to replace both. The original illustration is retained at `public/images/christmas-background.svg` as an alternative. Colours, spacing, and responsive layouts live in `src/app/globals.css`.
+The profile photo is the supplied reference image, stored unchanged at `public/images/christmas-living-room.png`. Add a JPG/WebP/PNG in `public/images/` and update `backgroundImage` in the event configuration to replace the profile photo. The original illustration is retained at `public/images/christmas-background.svg` as an alternative. Colours, spacing, and responsive layouts live in `src/app/globals.css`.
 
 The design blends a Christmas living-room wallpaper with XP-style blue window bars, bevelled controls, a Myspace-inspired profile, Notepad event details, and festive web badges. Typography uses system Tahoma/Verdana, Georgia, and Courier fonts, with no external font requests.
 
-GIF-style twinkles, lights, and dancing trees use lightweight CSS loops. The taskbar's pause/resume button stops all decorative animation; system reduced-motion settings disable it automatically. Desktop shortcuts navigate to sections. Mobile layouts stack the windows and hide nonessential sidebar decorations. There are no pretend close/minimise buttons or autoplay audio.
+GIF-style twinkles, lights, and dancing trees use lightweight CSS loops. The taskbar's pause/resume button stops all decorative animation; system reduced-motion settings disable it automatically. Desktop shortcuts navigate to sections. Mobile layouts stack the windows and hide nonessential sidebar decorations. The main window has a working minimise button; the taskbar invitation button restores it without clearing RSVP input. The desktop background is a full-viewport YouTube embed of Wham! — Last Christmas, configured for muted autoplay and looping. Player controls are accessible when the invitation is minimised. Playback depends on YouTube availability and browser autoplay policy; the local browser reported “This video is unavailable” during verification.
 
 ## Connect Supabase when ready
 
