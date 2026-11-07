@@ -1074,7 +1074,7 @@ legend span {
   inset: 0 0 40px;
   z-index: -2;
   background: #173b27 url("/images/last-christmas-tile.gif") repeat top left;
-  background-size: 480px 244px;
+  background-size: 336px 170.8px;
 }
 
 .desktop[data-minimised="true"] {
