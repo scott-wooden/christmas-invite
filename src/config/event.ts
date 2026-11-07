@@ -12,7 +12,7 @@ export const event = {
     "Fill in the RSVP below with your deets.",
   ],
   date: "5th December",
-  cost: "£17 per person",
+  cost: "£17 per person will cover the cost of the meal and some drinks",
   costUrl:
     "https://monzo.me/scottwooden/17.00?h=OlikeX&d=Xmas%20meal&account_type=personal",
   time: "Arrive from 4pm · Dinner ready from 6pm",
