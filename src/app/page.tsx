@@ -187,6 +187,20 @@ export default function Home() {
                     </dd>
                   </div>
                   <div>
+                    <dt>COST</dt>
+                    <dd>
+                      <a
+                        href={event.costUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`${event.cost} — pay via Monzo (new tab)`}
+                      >
+                        {event.cost}
+                      </a>
+                      <small>Pay via Monzo</small>
+                    </dd>
+                  </div>
+                  <div>
                     <dt>WEAR</dt>
                     <dd>
                       {event.dressCode}
