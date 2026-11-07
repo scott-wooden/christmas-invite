@@ -81,7 +81,8 @@ export function MusicPlayer() {
       <audio
         ref={audio}
         src="/audio/last-christmas.mp3"
-        preload="none"
+        autoPlay
+        preload="auto"
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onEnded={() => {
