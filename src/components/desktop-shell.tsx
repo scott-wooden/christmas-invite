@@ -78,7 +78,6 @@ export function DesktopShell({
         </div>
         {children}
       </main>
-      <MusicPlayer />
       <nav className="taskbar" aria-label="Desktop navigation">
         <button
           className="start-button"
@@ -104,11 +103,17 @@ export function DesktopShell({
           className="motion-toggle"
           type="button"
           aria-pressed={paused}
+          aria-label={paused ? "Resume sparkles" : "Pause sparkles"}
           onClick={() => setPaused(!paused)}
         >
-          {paused ? "▶ Resume sparkles" : "Ⅱ Pause sparkles"}
+          <span className="motion-label">
+            {paused ? "▶ Resume sparkles" : "Ⅱ Pause sparkles"}
+          </span>
+          <span className="motion-icon" aria-hidden="true">
+            ✦
+          </span>
         </button>
-        <span className="tray">♥ GOOD TIMES</span>
+        <MusicPlayer />
       </nav>
     </div>
   );

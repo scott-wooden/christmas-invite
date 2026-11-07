@@ -1123,95 +1123,93 @@ legend span {
   }
 }
 
-/* A compact, persistent player above the desktop taskbar. */
-.music-player {
-  position: fixed;
-  right: 16px;
-  bottom: 54px;
-  width: 290px;
-  max-width: calc(100vw - 24px);
-  z-index: 4;
-  border: 2px solid #2359a4;
-  border-radius: 6px 6px 0 0;
-  background: #ece9d8;
-  box-shadow: 4px 4px 0 #0006;
-}
-.music-player .window-title {
-  border-radius: 3px 3px 0 0;
-}
-.music-player-body {
-  padding: 9px;
-}
-.music-display {
+/* Music controls live in the right-hand system tray. */
+.taskbar-music {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: #192733;
-  color: #bde6ff;
-  border: 2px inset #a1a8aa;
-  padding: 10px;
-}
-.music-display strong {
-  display: block;
-  font-size: 12px;
-  color: #fff;
-}
-.music-display div > span {
-  display: block;
-  font-size: 10px;
-  margin-top: 4px;
-}
-.music-disc {
-  font-size: 28px;
-}
-.music-time {
-  margin-left: auto;
-  font:
-    12px "Courier New",
-    monospace;
-}
-.music-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 8px;
+  align-self: stretch;
+  gap: 9px;
+  padding: 0 14px 0 8px;
+  color: white;
+  background: linear-gradient(#24a7ea, #1282c9);
+  border-left: 1px solid #0b4292;
+  box-shadow: inset 1px 0 #6dc4f5;
+  flex-shrink: 0;
 }
 .music-play {
-  min-width: 83px;
-  min-height: 40px;
-  border: 2px outset #fff;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  color: white;
+  border: 1px solid #bce3ff;
   border-radius: 3px;
-  background: linear-gradient(#fff, #d6d5c7);
-  font-size: 11px;
-  font-weight: bold;
-  color: #183b74;
+  background: linear-gradient(#69b8ef, #186cae);
+  box-shadow: inset 1px 1px #ffffff50;
+  font-size: 15px;
+}
+.music-play:hover {
+  background: #388fd0;
 }
 .music-play:active {
-  border-style: inset;
+  box-shadow: inset 1px 1px #164f8d;
 }
-.music-status,
-.music-duration {
+.music-label {
+  display: grid;
+  gap: 2px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.music-label > span {
+  color: #e0f2ff;
   font-size: 9px;
-  color: #565a60;
-}
-.music-duration {
-  margin-left: auto;
 }
 .music-error {
+  position: absolute;
+  right: 5px;
+  bottom: calc(100% + 8px);
+  width: 220px;
+  border: 1px solid #b59c4c;
+  background: #fff9d6;
+  color: #7a2520;
+  padding: 10px;
   font-size: 11px;
-  color: #9a2020;
-  margin-top: 8px;
+  box-shadow: 2px 2px #0005;
 }
-.desktop {
-  padding-bottom: 245px;
+.motion-icon {
+  display: none;
 }
 @media (max-width: 720px) {
-  .music-player {
-    right: 12px;
-    bottom: 56px;
-    width: 270px;
+  .taskbar {
+    gap: 4px;
   }
-  .desktop {
-    padding-bottom: 255px;
+  .task-tab {
+    min-width: 0;
+  }
+  .motion-toggle {
+    margin: 0;
+    padding: 4px;
+    min-width: 28px;
+  }
+  .motion-label {
+    display: none;
+  }
+  .motion-icon {
+    display: inline;
+    font-size: 15px;
+  }
+  .taskbar-music {
+    gap: 5px;
+    padding-inline: 5px;
+  }
+  .music-play {
+    width: 32px;
+    height: 38px;
+  }
+  .music-label {
+    font-size: 9px;
+  }
+  .music-label > span {
+    font-size: 8px;
   }
 }
