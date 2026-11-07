@@ -47,11 +47,38 @@ export default function Home() {
         </a>
       </div>
       <div className="page-content">
-
+        <header className="party-banner">
+          <div className="fairy-lights" aria-hidden="true">
+            {Array.from({ length: 24 }, (_, i) => (
+              <i key={i} style={{ "--bulb": i } as React.CSSProperties} />
+            ))}
+          </div>
+          <p className="welcome-line">
+            ★ WELCOME TO OUR LITTLE CORNER OF THE INTERNET ★
+          </p>
+          <div className="banner-heading">
+            <span className="pixel-tree" aria-hidden="true">
+              🎄
+            </span>
+            <h1>{event.title}</h1>
+            <span className="pixel-tree second-tree" aria-hidden="true">
+              🎄
+            </span>
+          </div>
+          <p className="banner-tagline">
+            All I want for Christmas is… a proper 90’s party.
+          </p>
+          <div className="ticker">
+            <span>
+              ✦ You’re invited! ✦ {event.venue}, {event.city} ✦ Dress code:{" "}
+              {event.dressCode} ✦ Let’s party like it’s 1999! ✦
+            </span>
+          </div>
+        </header>
         <div className="homepage-grid">
           <aside className="profile-column">
             <section className="profile-card" aria-labelledby="profile-title">
-              <h1 id="profile-title">{event.title}</h1>
+              <h2 id="profile-title">{event.title}</h2>
               <p className="profile-quote">
                 “Back when the lights were multicoloured
                 <br />
