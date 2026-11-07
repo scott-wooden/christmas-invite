@@ -35,16 +35,7 @@ export function DesktopShell({
 
   return (
     <div className="desktop" data-paused={paused} data-minimised={minimised}>
-      <div className="video-wallpaper">
-        <iframe
-          src="https://www.youtube.com/embed/E8gmARGvPlI?autoplay=1&mute=1&loop=1&playlist=E8gmARGvPlI&playsinline=1&rel=0"
-          title="Wham! — Last Christmas (YouTube video)"
-          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-          allowFullScreen
-          referrerPolicy="strict-origin-when-cross-origin"
-          tabIndex={minimised ? 0 : -1}
-        />
-      </div>
+      <div className="gif-wallpaper" aria-hidden="true" />
       {!minimised && (
         <>
           <div className="desktop-sparkles" aria-hidden="true" />
@@ -70,7 +61,7 @@ export function DesktopShell({
             className="minimise-button"
             type="button"
             onClick={minimise}
-            aria-label="Minimise invitation to watch the video"
+            aria-label="Minimise invitation to see the desktop"
             title="Minimise invitation"
           >
             <span aria-hidden="true">−</span>
