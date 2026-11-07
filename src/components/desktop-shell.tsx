@@ -64,9 +64,6 @@ export function DesktopShell({
         <div className="browser-title">
           <span aria-hidden="true">🌐</span>
           <span>{title} — your festive corner of the internet</span>
-          <span className="connected">
-            <i /> ONLINE
-          </span>
           <button
             ref={minimiseButton}
             className="minimise-button"
